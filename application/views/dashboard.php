@@ -22,7 +22,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
                         <i class="fas fa-th"></i>
                     </div>
                     <a href="#" class="small-box-footer">
-                        ... <i class="fas fa-arrow-circle-right"></i>
+                        ...
                     </a>
                 </div>
             </div>
@@ -40,7 +40,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
                         <i class="fas fa-home"></i>
                     </div>
                     <a href="#" class="small-box-footer">
-                        ... <i class="fas fa-arrow-circle-right"></i>
+                        ..
                     </a>
                 </div>
             </div>
@@ -58,7 +58,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
                         <i class="fas fa-chart-pie"></i>
                     </div>
                     <a href="#" class="small-box-footer">
-                        ... <i class="fas fa-arrow-circle-right"></i>
+                        ...
                     </a>
                 </div>
             </div>
@@ -109,7 +109,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
                         <i class="fas fa-chart-pie"></i>
                     </div>
                     <a href="#" class="small-box-footer">
-                        ... <i class="fas fa-arrow-circle-right"></i>
+                        ...
                     </a>
                 </div>
             </div>

@@ -50,7 +50,6 @@ class Welcome extends CI_Controller
 		// $this->session->set_userdata('sn', "TAM");
 		// $this->session->set_userdata('givenname', "Sylvestre");
 		// $this->session->set_userdata('password', "Lionelmessi10");
-
 		// header("Location: " . base_url() . "index.php/dashboard");
 	}
 
