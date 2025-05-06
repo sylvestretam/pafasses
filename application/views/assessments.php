@@ -35,8 +35,8 @@ defined('BASEPATH') or exit('No direct script access allowed');
                         <div class="text-right">
 
                             <?php
-                                if ($_SESSION['role'] == 'ASSESSOR') {
-                                    if (!($assessment->notes > 0)) {
+                                // if ($_SESSION['role'] == 'ASSESSOR') {
+                                if (!($assessment->notes > 0)) {
                                 ?>
 
                             <a class="btn btn-sm btn-primary btn-flat"
@@ -45,14 +45,14 @@ defined('BASEPATH') or exit('No direct script access allowed');
                             </a>
 
                             <?php }
-                                } ?>
+                                // }
+                                ?>
 
                             <a href="<?= base_url(); ?>index.php/synthese/index/<?= $assessment->id_evaluation ?>"
                                 class="btn btn-sm btn-success btn-flat">
                                 <i class="nav-icon fas fa-pen"></i> SYNTHESE
                             </a>
-                            <a href="<?= base_url(); ?>index.php/rapports/rapportpdf/10"
-                                class="btn btn-sm btn-flat invisible">
+                            <a href="<?= base_url(); ?>index.php/rapports/rapportpdf/10" class="btn btn-sm btn-flat">
                                 <i class="nav-icon fas fa-pen"></i> RAPPORT
                             </a>
                         </div>

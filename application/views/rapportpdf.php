@@ -1,173 +1,302 @@
 <?php
-require_once('import/TCPDF-main/tcpdf.php');
+require_once('public/pdf/TCPDF-main/tcpdf.php');
 
 class MonPDF extends TCPDF
 {
 
     function Header()
     {
-        // Logo
-        $image_file = 'public/dist/img/eneo_logo.jpg';
-        $this->Image($image_file, 10, 5, 30, '', 'JPG', '', 'T', false, 300, '', false, false, 0, false, false, false);
+        // $image_file = 'public/dist/img/eneo_logo.jpg';
+        // $this->Image($image_file, 10, 5, 30, '', 'JPG', '', 'T', false, 300, '', false, false, 0, false, false, false);
     }
 
-    public function Footer()
-    {
-        // Pied de page
-    }
+    // public function Footer()
+    // {
+    //     // Pied de page
+    // }
 
     public function MonContenu()
     {
-        $provider_name = "PAF NAME";
-        $activity_name = "ACTIVITY NAME";
-        $activity_code = "ACTIVITY CODE";
-        $provider_id = "PROVIDER ID";
 
-        $RSOP = "TAM Sylvestre";
-        $RPLAN = "TAM Sylvestre";
+        // Chemin vers l'image
+        $imageFile = 'public/dist/img/eneo_logo.jpg';
 
-        $fontreg = TCPDF_FONTS::addTTFfont('./import/sansation/Sansation-Regular.ttf', 'TrueTypeUnicode', '', 96);
-        $fontbold = ""; //TCPDF_FONTS::addTTFfont('import/sansation/Sansation-Bold.ttf', 'TrueTypeUnicode', '', 96);
-        $lineheight = 6;
+        $fontreg = TCPDF_FONTS::addTTFfont('public/pdf/sansation/Sansation-Regular.ttf', 'TrueTypeUnicode', '', 96);
+        $fontbold = TCPDF_FONTS::addTTFfont('public/pdf/sansation/Sansation-Bold.ttf', 'TrueTypeUnicode', '', 96);
 
-        //titre
+        $pageWidth = $this->getPageWidth();
+        $leftMargin = $this->getMargins()['left'];
+        $rightMargin = $this->getMargins()['right'];
+        $cellWidth = ($pageWidth - $leftMargin - $rightMargin);
+
+        $lineheight = 15;
+
         $this->SetFont($fontbold, 'B', 16);
-        $this->Cell(0, $lineheight, 'Rapport Synthétique - Evaluation technique par les unités', 0, 1, 'C');
+        // Définir la couleur du texte (rouge par exemple)
+        $this->SetTextColor(0, 0, 255);
+        $this->MultiCell($cellWidth - 30, $lineheight, 'EVALUATION DES PERFORMANCES DES PARTENAIRES D’AFFAIRES ENEO', 1, 'C', 0, 0, '', '', true);
+
+        // Insérer l'image dans une cellule
+        $this->Image($imageFile, '', '', 0, 15, '', '', '', false, 300, '', false, false, 1, false, false, false);
+
+        $this->SetTextColor(0, 0, 0);
+        $this->Cell(0, $lineheight, '', 0, 'C');
         $this->ln(2);
+
+        $lineheight = 10;
+        //Premier tableau
+        $this->SetFont($fontreg, 'B', 8);
+        $this->MultiCell($cellWidth / 6, $lineheight, 'Nom/Raison sociale partenaire :', 1, 'l', 0, 0, '', '', true);
+        $this->MultiCell($cellWidth / 2, $lineheight, '', 1, 'l', 0, 0, '', '', true);
+        $this->MultiCell($cellWidth / 6, $lineheight, 'Date de l’évaluation :', 1, 'l', 0, 0, '', '', true);
+        $this->MultiCell($cellWidth / 6, $lineheight, '', 1, 'l', 0, 1, '', '', true);
+
+        $this->SetFont($fontreg, 'B', 8);
+        $this->MultiCell($cellWidth / 6, $lineheight, 'Activité/spécialité évaluée :', 1, 'l', 0, 0, '', '', true);
+        $this->MultiCell($cellWidth / 2, $lineheight, '', 1, 'l', 0, 0, '', '', true);
+        $this->MultiCell($cellWidth / 6, $lineheight, 'Unité évaluatrice :', 1, 'l', 0, 0, '', '', true);
+        $this->MultiCell($cellWidth / 6, $lineheight, '', 1, 'l', 0, 1, '', '', true);
+
+        $this->SetFont($fontreg, 'B', 8);
+        $this->MultiCell($cellWidth / 4, $lineheight, 'Période concernée :', 1, 'l', 0, 0, '', '', true);
+        $this->MultiCell($cellWidth / 4, $lineheight, '', 1, 'l', 0, 0, '', '', true);
+        $this->MultiCell($cellWidth / 4, $lineheight, 'Lieu de l’activité :', 1, 'l', 0, 0, '', '', true);
+        $this->MultiCell($cellWidth / 4, $lineheight, '', 1, 'l', 0, 1, '', '', true);
+
+        // $this->Cell($cellWidth / 4, $lineheight, 'Nom/Raison sociale partenaire :', 1, 0, 'L');
+        // $this->Cell($cellWidth / 2, $lineheight, '', 1, 0, 'L');
+        // $this->Cell($cellWidth / 4, $lineheight, 'Date de l’évaluation :', 1, 0, 'L');
+        // $this->Cell($cellWidth / 8, $lineheight, '', 1, 1, 'L');
+
+        // $this->Cell($cellWidth / 4, $lineheight, 'Activité/spécialité évaluée :', 1, 0, 'L');
+        // $this->Cell($cellWidth / 2, $lineheight, '', 1, 0, 'L');
+        // $this->Cell($cellWidth / 4, $lineheight, 'Unité évaluatrice :', 1, 0, 'L');
+        // $this->Cell($cellWidth / 4, $lineheight, '', 1, 1, 'L');
+
+        // $this->Cell($cellWidth / 4, $lineheight, 'Période concernée :', 1, 0, 'L');
+        // $this->Cell($cellWidth / 2, $lineheight, '', 1, 0, 'L');
+        // $this->Cell($cellWidth / 4, $lineheight, 'Lieu de l’activité :', 1, 0, 'L');
+        // $this->Cell($cellWidth / 4, $lineheight, '', 1, 1, 'L');
+
+        $this->ln(4);
 
         //Premier tableau
         $this->SetFont($fontreg, '', 9);
-        $this->Cell(90, $lineheight, 'Process-Owner:', 1, 0, 'R');
-        $this->SetFont($fontreg, 'B', 9);
-        $this->MultiCell(100, $lineheight, 'DAL', 1, 'C');
-        $this->SetFont($fontreg, '', 9);
-        $this->Cell(90, $lineheight, 'Unite d evaluation:', 1, 0, 'R');
-        $this->SetFont($fontreg, 'B', 9);
-        $this->MultiCell(100, $lineheight, 'SYSTEME ET MAINTENANCE', 1, 'C');
-        $this->SetFont($fontreg, '', 9);
-        $this->Cell(90, $lineheight, 'Nom/Raison sociale partenaire:', 1, 0, 'R');
-        $this->SetFont($fontreg, 'B', 9);
-        $this->MultiCell(100, $lineheight, $provider_name, 1, 'C');
-        $this->SetFont($fontreg, '', 9);
-        $this->Cell(90, $lineheight, 'Nombre de spécialités :', 1, 0, 'R');
-        $this->SetFont($fontreg, 'B', 9);
-        $this->MultiCell(100, $lineheight, 10, 1, 'C');
-        $this->SetFont($fontreg, '', 9);
-        $this->Cell(90, $lineheight, 'Activité/spécialité évaluée : ( Libélé du lot/projet)', 1, 0, 'R');
-        $this->SetFont($fontreg, 'B', 9);
-        $this->MultiCell(100, $lineheight, $activity_name, 1, 'C');
-        $this->SetFont($fontreg, '', 9);
-        $this->Cell(90, $lineheight, 'Lieu d’évaluation (ville où se déroule le projet) :', 1, 0, 'R');
-        $this->SetFont($fontreg, 'B', 9);
-        $this->MultiCell(100, $lineheight, 'DOUALA', 1, 'C');
-        $this->SetFont($fontreg, '', 9);
-        $this->Cell(90, $lineheight, 'Période concernée :', 1, 0, 'R');
-        $this->SetFont($fontreg, 'B', 9);
-        $this->MultiCell(100, $lineheight, "01 jan. 2023" . " à " . date('d M Y'), 1, 'C');
-        $this->SetFont($fontreg, '', 9);
-        $this->Cell(90, $lineheight, 'Date de fin de l’évaluation :', 1, 0, 'R');
-        $this->SetFont($fontreg, 'B', 9);
-        $this->MultiCell(100, $lineheight, date('d M Y'), 1, 'C');
-        $this->ln(2);
+        $this->Cell($cellWidth / 2, $lineheight, 'Critère D’évaluation', 1, 0, 'C');
+        $this->Cell($cellWidth / 10, $lineheight, 'Médiocre', 1, '0', 'C');
+        $this->Cell($cellWidth / 10, $lineheight, 'Insuffisant', 1, '0', 'C');
+        $this->Cell($cellWidth / 10, $lineheight, 'Passable', 1, '0', 'C');
+        $this->Cell($cellWidth / 10, $lineheight, 'Bien', 1, '0', 'C');
+        $this->Cell($cellWidth / 10, $lineheight, 'Excellent', 1, '1', 'C');
 
-        $lineheight = 10;
-        //Deuxième tableau
-        $this->SetFont($fontreg, 'B', 9);
-        $this->Cell(55, $lineheight, 'Commission d\'évalution', 1, 0, 'C');
-        $this->MultiCell(135, $lineheight, '', 1, 'L');
-        $this->SetFont($fontreg, '', 9);
-        $this->Cell(55, $lineheight, 'Responsable', 1, 0, 'L');
-        $this->SetFont($fontreg, 'B', 9);
-        $this->Cell(50, $lineheight, 'EBOUMBOU MARTIAL', 1, 0, 'C');
-        $this->SetFont($fontreg, '', 9);
-        $this->Cell(30, $lineheight, ' Fonction', 1, 0, 'L');
-        $this->MultiCell(55, $lineheight, '', 1, 'L');
-        $this->SetFont($fontreg, '', 9);
-        $this->Cell(55, $lineheight, 'EVALUATEUR', 1, 0, 'L');
-        $this->SetFont($fontreg, 'B', 9);
-        $this->MultiCell(50, $lineheight, "TAM Sylvestre", 1, 'C', 0, 0, '', '', true, 0, false, true, 20, 'T');
-        $this->SetFont($fontreg, '', 9);
-        $this->Cell(30, $lineheight, ' Fonction', 1, 0, 'L');
-        $this->MultiCell(55, $lineheight, '', 1, 'L');
-        $this->SetFont($fontreg, '', 9);
-        $this->Cell(55, $lineheight, 'Responsable Support Aux Operation', 1, 0, 'L');
-        $this->SetFont($fontreg, 'B', 9);
-        $this->Cell(50, $lineheight, "RSOP NAME", 1, 0, 'C');
-        $this->SetFont($fontreg, '', 9);
-        $this->Cell(30, $lineheight, ' Fonction', 1, 0, 'L');
-        $this->MultiCell(55, $lineheight, '', 1, 'L');
-        $this->SetFont($fontreg, '', 9);
-        $this->Cell(55, $lineheight, 'Responsable Planification', 1, 0, 'L');
-        $this->SetFont($fontreg, 'B', 9);
-        $this->Cell(50, $lineheight, "", 1, 0, 'C');
-        $this->SetFont($fontreg, '', 9);
-        $this->Cell(30, $lineheight, ' Fonction', 1, 0, 'L');
-        $this->MultiCell(55, $lineheight, "", 1, 'L');
-        $this->ln(2);
 
-        $lineheight = 6;
-        //Troisième tableau
+        $this->Cell($cellWidth / 2, $lineheight, '', 1, 0, 'C');
+        $this->Cell($cellWidth / 10, $lineheight, '', 1, '0', 'C');
+        $this->Cell($cellWidth / 10, $lineheight, '', 1, '0', 'C');
+        $this->Cell($cellWidth / 10, $lineheight, '', 1, '0', 'C');
+        $this->Cell($cellWidth / 10, $lineheight, '', 1, '0', 'C');
+        $this->Cell($cellWidth / 10, $lineheight, '', 1, '1', 'C');
+
         $this->SetFont($fontreg, 'B', 9);
-        $this->Cell(20, $lineheight, 'N°Critères', 1, 0, 'R');
-        $this->Cell(70, $lineheight, 'Désignation', 1, 0, 'C');
-        $this->Cell(30, $lineheight, 'Note', 1, 0, 'C');
-        $this->Cell(70, $lineheight, 'Observations', 1, 1, 'L');
+        $this->MultiCell(0, $lineheight, '1) TECHNIQUE (Qualité de la prestation/ travaux/matériel) (30%)', 1, 'l', 0, 1, '', '', true);
 
         $this->SetFont($fontreg, '', 9);
+        $lineheight = 9;
+        $this->MultiCell($cellWidth / 2, $lineheight, '• Conformité des travaux/prestations/matériel avec les normes en vigueur', 1, 'C', 0, 0, '', '', true);
+        $this->MultiCell($cellWidth / 10, $lineheight, '', 1, 'l', 0, 0, '', '', true);
+        $this->MultiCell($cellWidth / 10, $lineheight, '', 1, 'l', 0, 0, '', '', true);
+        $this->MultiCell($cellWidth / 10, $lineheight, '', 1, 'l', 0, 0, '', '', true);
+        $this->MultiCell($cellWidth / 10, $lineheight, '', 1, 'l', 0, 0, '', '', true);
+        $this->MultiCell($cellWidth / 10, $lineheight, '', 1, 'l', 0, 1, '', '', true);
 
-        $this->Cell(20, $lineheight, '1.', 1, 0, 'R');
-        $this->Cell(70, $lineheight, 'Respect des délais', 1, 0, 'C');
-        $this->Cell(30, $lineheight, number_format($note1 = 10, 2), 1, 0, 'C');
-        $this->MultiCell(70, $lineheight, '', 1, 'L');
+        $this->MultiCell($cellWidth / 2, $lineheight, '• Respect du cahier de charges', 1, 'C', 0, 0, '', '', true);
+        $this->MultiCell($cellWidth / 10, $lineheight, '', 1, 'l', 0, 0, '', '', true);
+        $this->MultiCell($cellWidth / 10, $lineheight, '', 1, 'l', 0, 0, '', '', true);
+        $this->MultiCell($cellWidth / 10, $lineheight, '', 1, 'l', 0, 0, '', '', true);
+        $this->MultiCell($cellWidth / 10, $lineheight, '', 1, 'l', 0, 0, '', '', true);
+        $this->MultiCell($cellWidth / 10, $lineheight, '', 1, 'l', 0, 1, '', '', true);
 
-        $this->Cell(20, $lineheight, '2.', 1, 0, 'R');
-        $this->Cell(70, $lineheight, 'Conformité du besoin', 1, 0, 'C');
-        $this->Cell(30, $lineheight, number_format($note2 = 10, 2), 1, 0, 'C');
-        $this->MultiCell(70, $lineheight, '', 1, 'L');
+        $this->MultiCell($cellWidth / 2, $lineheight, '• Efficacité des travaux sur la durée (fourniture régulière des prestations/matériel de qualité)', 1, 'C', 0, 0, '', '', true);
+        $this->MultiCell($cellWidth / 10, $lineheight, '', 1, 'l', 0, 0, '', '', true);
+        $this->MultiCell($cellWidth / 10, $lineheight, '', 1, 'l', 0, 0, '', '', true);
+        $this->MultiCell($cellWidth / 10, $lineheight, '', 1, 'l', 0, 0, '', '', true);
+        $this->MultiCell($cellWidth / 10, $lineheight, '', 1, 'l', 0, 0, '', '', true);
+        $this->MultiCell($cellWidth / 10, $lineheight, '', 1, 'l', 0, 1, '', '', true);
 
-        $this->Cell(20, $lineheight, '3.', 1, 0, 'R');
-        $this->Cell(70, $lineheight, 'Respect des coûts', 1, 0, 'C');
-        $this->Cell(30, $lineheight, number_format($note3 = 10, 2), 1, 0, 'C');
-        $this->MultiCell(70, $lineheight, '', 1, 'L');
+        $this->SetFont($fontreg, 'B', 9);
+        $lineheight = 0;
+        $this->MultiCell(0, $lineheight, '2) HSE (20%)', 1, 'l', 0, 1, '', '', true);
 
-        $this->Cell(20, $lineheight, '4.', 1, 0, 'R');
-        $this->Cell(70, $lineheight, 'Performances HS', 1, 0, 'C');
-        $this->Cell(30, $lineheight, number_format($note4 = 10, 2), 1, 0, 'C');
-        $this->MultiCell(70, $lineheight, '', 1, 'L');
+        $this->SetFont($fontreg, '', 9);
+        $lineheight = 0;
+        $this->MultiCell($cellWidth / 2, $lineheight, '• Equipement personnel en EPI', 1, 'C', 0, 0, '', '', true);
+        $this->MultiCell($cellWidth / 10, $lineheight, '', 1, 'l', 0, 0, '', '', true);
+        $this->MultiCell($cellWidth / 10, $lineheight, '', 1, 'l', 0, 0, '', '', true);
+        $this->MultiCell($cellWidth / 10, $lineheight, '', 1, 'l', 0, 0, '', '', true);
+        $this->MultiCell($cellWidth / 10, $lineheight, '', 1, 'l', 0, 0, '', '', true);
+        $this->MultiCell($cellWidth / 10, $lineheight, '', 1, 'l', 0, 1, '', '', true);
 
-        $this->Cell(20, $lineheight, '5.', 1, 0, 'R');
-        $this->Cell(70, $lineheight, 'Conformité reglementaire', 1, 0, 'C');
-        $this->Cell(30, $lineheight, number_format($note5 = 10, 2), 1, 0, 'C');
-        $this->MultiCell(70, $lineheight, '', 1, 'L');
+        $this->MultiCell($cellWidth / 2, $lineheight, '• Respect des procédures sécurité et exigences Eneo', 1, 'C', 0, 0, '', '', true);
+        $this->MultiCell($cellWidth / 10, $lineheight, '', 1, 'l', 0, 0, '', '', true);
+        $this->MultiCell($cellWidth / 10, $lineheight, '', 1, 'l', 0, 0, '', '', true);
+        $this->MultiCell($cellWidth / 10, $lineheight, '', 1, 'l', 0, 0, '', '', true);
+        $this->MultiCell($cellWidth / 10, $lineheight, '', 1, 'l', 0, 0, '', '', true);
+        $this->MultiCell($cellWidth / 10, $lineheight, '', 1, 'l', 0, 1, '', '', true);
 
-        $lineheight = 12;
-        $this->SetFont($fontreg, '', 11);
-        $this->Cell(90, $lineheight, 'TOTAL', 1, 0, 'C');
-        $this->Cell(30, $lineheight, number_format($note1 + $note2 + $note3 + $note4 + $note5, 2), 1, 0, 'C');
-        $this->Cell(70, $lineheight, ' / 20', 1, 1, 'L');
-        $this->ln(2);
+        $this->MultiCell($cellWidth / 2, $lineheight, '• Reporting des évènements HSE', 1, 'C', 0, 0, '', '', true);
+        $this->MultiCell($cellWidth / 10, $lineheight, '', 1, 'l', 0, 0, '', '', true);
+        $this->MultiCell($cellWidth / 10, $lineheight, '', 1, 'l', 0, 0, '', '', true);
+        $this->MultiCell($cellWidth / 10, $lineheight, '', 1, 'l', 0, 0, '', '', true);
+        $this->MultiCell($cellWidth / 10, $lineheight, '', 1, 'l', 0, 0, '', '', true);
+        $this->MultiCell($cellWidth / 10, $lineheight, '', 1, 'l', 0, 1, '', '', true);
 
-        $lineheight = 15;
-        $this->SetFont($fontbold, 'B', 12);
-        $this->Cell(60, $lineheight, 'Resultat Global / 20', 1, 0, 'C');
-        $this->Cell(70, $lineheight, number_format($note1 + $note2 + $note3 + $note4 + $note5, 2) . ' / 20 ', 1, 0, 'C');
-        $this->Cell(60, $lineheight, '', 1, 'L');
-        $this->ln(2);
+        $this->SetFont($fontreg, 'B', 9);
+        $lineheight = 0;
+        $this->MultiCell(0, $lineheight, '3) FINANCE (20%)', 1, 'l', 0, 1, '', '', true);
 
-        $lineheight = 10;
-        $this->Cell(38, $lineheight, 'EVALUATEUR(S)', 1, 0, 'C');
-        $this->Cell(38, $lineheight, 'RSOP', 1, 0, 'C');
-        $this->Cell(38, $lineheight, 'RSPP', 1, 0, 'C');
-        $this->Cell(38, $lineheight, 'Resp EVAL ', 1, 0, 'C');
-        $this->Cell(38, $lineheight, 'Validation', 1, 1, 'C');
+        $this->SetFont($fontreg, '', 9);
+        $lineheight = 0;
+        $this->MultiCell($cellWidth / 2, $lineheight, '• Acceptation des conditions de paiement Eneo', 1, 'C', 0, 0, '', '', true);
+        $this->MultiCell($cellWidth / 10, $lineheight, '', 1, 'l', 0, 0, '', '', true);
+        $this->MultiCell($cellWidth / 10, $lineheight, '', 1, 'l', 0, 0, '', '', true);
+        $this->MultiCell($cellWidth / 10, $lineheight, '', 1, 'l', 0, 0, '', '', true);
+        $this->MultiCell($cellWidth / 10, $lineheight, '', 1, 'l', 0, 0, '', '', true);
+        $this->MultiCell($cellWidth / 10, $lineheight, '', 1, 'l', 0, 1, '', '', true);
 
-        $lineheight = 40;
+        $this->MultiCell($cellWidth / 2, $lineheight, '• Préfinancement des travaux', 1, 'C', 0, 0, '', '', true);
+        $this->MultiCell($cellWidth / 10, $lineheight, '', 1, 'l', 0, 0, '', '', true);
+        $this->MultiCell($cellWidth / 10, $lineheight, '', 1, 'l', 0, 0, '', '', true);
+        $this->MultiCell($cellWidth / 10, $lineheight, '', 1, 'l', 0, 0, '', '', true);
+        $this->MultiCell($cellWidth / 10, $lineheight, '', 1, 'l', 0, 0, '', '', true);
+        $this->MultiCell($cellWidth / 10, $lineheight, '', 1, 'l', 0, 1, '', '', true);
 
-        $this->Cell(38, $lineheight, '', 1, 0, 'L');
-        $this->Cell(38, $lineheight, '', 1, 0, 'L');
-        $this->Cell(38, $lineheight, '', 1, 0, 'L');
-        $this->Cell(38, $lineheight, '', 1, 0, 'L');
-        $this->Cell(38, $lineheight, '', 1, 1, 'L');
+        $this->MultiCell($cellWidth / 2, $lineheight, '• Clarté dans la structure des prix/cout', 1, 'C', 0, 0, '', '', true);
+        $this->MultiCell($cellWidth / 10, $lineheight, '', 1, 'l', 0, 0, '', '', true);
+        $this->MultiCell($cellWidth / 10, $lineheight, '', 1, 'l', 0, 0, '', '', true);
+        $this->MultiCell($cellWidth / 10, $lineheight, '', 1, 'l', 0, 0, '', '', true);
+        $this->MultiCell($cellWidth / 10, $lineheight, '', 1, 'l', 0, 0, '', '', true);
+        $this->MultiCell($cellWidth / 10, $lineheight, '', 1, 'l', 0, 1, '', '', true);
+
+        $this->SetFont($fontreg, 'B', 9);
+        $lineheight = 0;
+        $this->MultiCell(0, $lineheight, '4) DELAIS (20%)', 1, 'l', 0, 1, '', '', true);
+
+        $this->SetFont($fontreg, '', 9);
+        $lineheight = 0;
+        $this->MultiCell($cellWidth / 2, $lineheight, '• Respect planning', 1, 'C', 0, 0, '', '', true);
+        $this->MultiCell($cellWidth / 10, $lineheight, '', 1, 'l', 0, 0, '', '', true);
+        $this->MultiCell($cellWidth / 10, $lineheight, '', 1, 'l', 0, 0, '', '', true);
+        $this->MultiCell($cellWidth / 10, $lineheight, '', 1, 'l', 0, 0, '', '', true);
+        $this->MultiCell($cellWidth / 10, $lineheight, '', 1, 'l', 0, 0, '', '', true);
+        $this->MultiCell($cellWidth / 10, $lineheight, '', 1, 'l', 0, 1, '', '', true);
+
+        $this->MultiCell($cellWidth / 2, $lineheight, '• Disponibilité/Temps de réaction en cas de sollicitation Eneo', 1, 'C', 0, 0, '', '', true);
+        $this->MultiCell($cellWidth / 10, $lineheight, '', 1, 'l', 0, 0, '', '', true);
+        $this->MultiCell($cellWidth / 10, $lineheight, '', 1, 'l', 0, 0, '', '', true);
+        $this->MultiCell($cellWidth / 10, $lineheight, '', 1, 'l', 0, 0, '', '', true);
+        $this->MultiCell($cellWidth / 10, $lineheight, '', 1, 'l', 0, 0, '', '', true);
+        $this->MultiCell($cellWidth / 10, $lineheight, '', 1, 'l', 0, 1, '', '', true);
+
+        $this->MultiCell($cellWidth / 2, $lineheight, '• Délais de restitution des documents après travaux /prestations', 1, 'C', 0, 0, '', '', true);
+        $this->MultiCell($cellWidth / 10, $lineheight, '', 1, 'l', 0, 0, '', '', true);
+        $this->MultiCell($cellWidth / 10, $lineheight, '', 1, 'l', 0, 0, '', '', true);
+        $this->MultiCell($cellWidth / 10, $lineheight, '', 1, 'l', 0, 0, '', '', true);
+        $this->MultiCell($cellWidth / 10, $lineheight, '', 1, 'l', 0, 0, '', '', true);
+        $this->MultiCell($cellWidth / 10, $lineheight, '', 1, 'l', 0, 1, '', '', true);
+
+
+        $this->SetFont($fontreg, 'B', 9);
+        $lineheight = 0;
+        $this->MultiCell(0, $lineheight, '5) ETHIQUE/VALEURS (10%)', 1, 'l', 0, 1, '', '', true);
+
+        $this->SetFont($fontreg, '', 9);
+        $lineheight = 0;
+        $this->MultiCell($cellWidth / 2, $lineheight, '• Respect des Valeurs Eneo', 1, 'C', 0, 0, '', '', true);
+        $this->MultiCell($cellWidth / 10, $lineheight, '', 1, 'l', 0, 0, '', '', true);
+        $this->MultiCell($cellWidth / 10, $lineheight, '', 1, 'l', 0, 0, '', '', true);
+        $this->MultiCell($cellWidth / 10, $lineheight, '', 1, 'l', 0, 0, '', '', true);
+        $this->MultiCell($cellWidth / 10, $lineheight, '', 1, 'l', 0, 0, '', '', true);
+        $this->MultiCell($cellWidth / 10, $lineheight, '', 1, 'l', 0, 1, '', '', true);
+
+        $this->MultiCell($cellWidth / 2, $lineheight, '• Responsabilité sociale', 1, 'C', 0, 0, '', '', true);
+        $this->MultiCell($cellWidth / 10, $lineheight, '', 1, 'l', 0, 0, '', '', true);
+        $this->MultiCell($cellWidth / 10, $lineheight, '', 1, 'l', 0, 0, '', '', true);
+        $this->MultiCell($cellWidth / 10, $lineheight, '', 1, 'l', 0, 0, '', '', true);
+        $this->MultiCell($cellWidth / 10, $lineheight, '', 1, 'l', 0, 0, '', '', true);
+        $this->MultiCell($cellWidth / 10, $lineheight, '', 1, 'l', 0, 1, '', '', true);
+
+        $this->SetFont($fontreg, 'B', 11);
+        $lineheight = 20;
+        $this->MultiCell(0, $lineheight, 'Analyse SWOT :', 1, 'l', 0, 1, '', '', true);
+        $lineheight = 20;
+        $this->MultiCell(0, $lineheight, 'Axes d’amélioration : (ou toute autre observation sur le PAF) :', 1, 'l', 0, 1, '', '', true);
+
+        $this->ln(1);
+        $this->SetFont($fontreg, 'B', 7);
+        $lineheight = 0;
+        $this->setCellPadding(1);
+        $this->MultiCell($cellWidth / 4, $lineheight, 'Performance (Cocher la case) :', 1, 'l', 0, 0, '', '', true);
+        $this->MultiCell($cellWidth / 5, $lineheight, 'MEDIOCRE (<65)', 1, 'l', 0, 0, '', '', true);
+        $this->MultiCell($cellWidth / 20, $lineheight, '', 1, 'l', 0, 0, '', '', true);
+        $this->MultiCell($cellWidth / 5, $lineheight, 'SATISFAISANT (>65, <80)', 1, 'l', 0, 0, '', '', true);
+        $this->MultiCell($cellWidth / 20, $lineheight, '', 1, 'l', 0, 0, '', '', true);
+        $this->MultiCell($cellWidth / 5, $lineheight, 'EXCELLENT (>80)', 1, 'l', 0, 0, '', '', true);
+        $this->MultiCell($cellWidth / 20, $lineheight, '', 1, 'l', 0, 1, '', '', true);
+
+        $this->ln(1);
+        $this->SetFont($fontreg, 'B', 7);
+        $lineheight = 0;
+        $this->setCellPadding(3);
+        $this->MultiCell($cellWidth / 6, $lineheight, 'Responsable :', 1, 'l', 0, 0, '', '', true);
+        $this->MultiCell($cellWidth / 6, $lineheight, '', 1, 'l', 0, 0, '', '', true);
+        $this->MultiCell($cellWidth / 6, $lineheight, 'Fonction :', 1, 'l', 0, 0, '', '', true);
+        $this->MultiCell($cellWidth / 6, $lineheight, '', 1, 'l', 0, 0, '', '', true);
+        $this->MultiCell($cellWidth / 6, $lineheight, 'Signature : ', 1, 'l', 0, 0, '', '', true);
+        $this->MultiCell($cellWidth / 6, $lineheight, '', 1, 'l', 0, 1, '', '', true);
+
+        $this->ln(1);
+        $this->SetFont($fontreg, 'B', 7);
+        $lineheight = 0;
+        $this->setCellPadding(3);
+        $this->MultiCell($cellWidth / 6, $lineheight, 'Participant :', 1, 'l', 0, 0, '', '', true);
+        $this->MultiCell($cellWidth / 6, $lineheight, '', 1, 'l', 0, 0, '', '', true);
+        $this->MultiCell($cellWidth / 6, $lineheight, 'Fonction :', 1, 'l', 0, 0, '', '', true);
+        $this->MultiCell($cellWidth / 6, $lineheight, '', 1, 'l', 0, 0, '', '', true);
+        $this->MultiCell($cellWidth / 6, $lineheight, 'Signature : ', 1, 'l', 0, 0, '', '', true);
+        $this->MultiCell($cellWidth / 6, $lineheight, '', 1, 'l', 0, 1, '', '', true);
+
+        $this->SetFont($fontreg, 'B', 7);
+        $lineheight = 0;
+        $this->setCellPadding(3);
+        $this->MultiCell($cellWidth / 6, $lineheight, 'Participant :', 1, 'l', 0, 0, '', '', true);
+        $this->MultiCell($cellWidth / 6, $lineheight, '', 1, 'l', 0, 0, '', '', true);
+        $this->MultiCell($cellWidth / 6, $lineheight, 'Fonction :', 1, 'l', 0, 0, '', '', true);
+        $this->MultiCell($cellWidth / 6, $lineheight, '', 1, 'l', 0, 0, '', '', true);
+        $this->MultiCell($cellWidth / 6, $lineheight, 'Signature : ', 1, 'l', 0, 0, '', '', true);
+        $this->MultiCell($cellWidth / 6, $lineheight, '', 1, 'l', 0, 1, '', '', true);
+
+        $this->ln(1);
+        $this->SetFont($fontreg, 'B', 7);
+        $lineheight = 4;
+        $this->SetTextColor(205, 0, 10);
+
+        $this->setCellPadding(0);
+        $this->MultiCell(0, 0, '', 'B', 'L', 0, 1, '', '', true);
+        $this->setCellPadding(2);
+        $this->MultiCell(($cellWidth) - 3, $lineheight, '*******************RESERVE*********************', 'L', 'C', 0, 0, '', '', true);
+        $this->MultiCell(3, 0, '', 'R', 'R', 0, 1, '', '', true);
+
+        $lineheight = 5;
+        $this->SetTextColor(0, 0, 0);
+        $this->MultiCell($cellWidth / 3, $lineheight, 'Responsable Pole Fournisseurs:', 'L', 'L', 0, 0, '', '', true);
+        $this->MultiCell($cellWidth / 3, $lineheight, '', 0, 'L', 0, 0, '', '', true);
+        $this->MultiCell($cellWidth / 6, $lineheight, 'Signature / Date : ', 0, 'l', 0, 0, '', '', true);
+        $this->MultiCell($cellWidth / 6, $lineheight, '', 'R', 'l', 0, 1, '', '', true);
+
+        $this->MultiCell(($cellWidth) - 3, $lineheight, 'Remarques :', 'L', 'L', 0, 0, '', '', true);
+        $this->MultiCell(3, $lineheight, '', 'R', 'R', 0, 1, '', '', true);
+        $this->setCellPadding(0);
+        $this->MultiCell(0, 0, '', 'B', 'L', 0, 0, '', '', true);
     }
 }
 
@@ -175,7 +304,7 @@ class MonPDF extends TCPDF
 // $pdf = new MonPDF();
 $pdf = new MonPDF('P', 'mm', 'A4', true, 'UTF-8', false);
 // set margins
-$pdf->setMargins('10', '27', '15');
+$pdf->setMargins('10', '10', '10');
 $pdf->setHeaderMargin('5');
 $pdf->setFooterMargin('10');
 

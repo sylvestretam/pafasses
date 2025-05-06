@@ -1,6 +1,5 @@
 <?php
 defined('BASEPATH') or exit('No direct script access allowed');
-
 ?>
 
 <!-- Content Wrapper. Contains page content -->
@@ -35,8 +34,8 @@ defined('BASEPATH') or exit('No direct script access allowed');
                                     for ($i = 1; $i <= 14; $i++) { ?>
                                     <th>Note <?= $i ?></th>
                                     <?php } ?>
-                                    <!-- <th>Valeur PM</th>
-                                    <th>Valeur PMO</th>
+                                    <th>Final</th>
+                                    <!-- <th>Valeur PMO</th>
                                     <th>Valeur QHSE</th>
                                     <th>Note</th>
                                     <th>Observations </th> -->
@@ -45,13 +44,10 @@ defined('BASEPATH') or exit('No direct script access allowed');
                             <tbody>
                                 <?php
 
-                                function getNote(
-                                    $email,
-                                    $question,
-                                    $notes
-                                ) {
+                                function getNote($email, $question, $notes)
+                                {
                                     foreach ($notes as $note) {
-                                        if ($note->email_participant === $email && $note->id_question === $question) {
+                                        if ($note->email_participant == $email && $note->id_question == $question) {
                                             return $note->note;
                                         }
                                     }
@@ -70,6 +66,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
                                         <?= getNote($assessor->email_participant, $i, $notes) ?>
                                     </td>
                                     <?php } ?>
+                                    <td> <?= $assessor->performance ?> </td>
                                 </tr>
                                 <?php } ?>
 

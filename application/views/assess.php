@@ -219,7 +219,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
                         </div>
                     </div>
 
-                    <div class="card card-secondary">
+                    <div class="card card-secondary invisible">
                         <div class="card-header">
                             <h3 class="card-title">
                                 Performance : MEDIOCRE (<65) SATISFAISANT (>65, <80) EXCELLENT (>80)
@@ -228,8 +228,8 @@ defined('BASEPATH') or exit('No direct script access allowed');
 
                         <div class="card-body">
                             <div class="form-group row">
-                                <input type="number" class="form-control col-4" name="performance" max="100" min="0"
-                                    required>
+                                <input type="number" class="form-control col-4" nam="performance" max="100" min="0"
+                                    disabled>
                                 <label for="inputobs1" class="col-2 col-form-label">
                                     / 100
                                 </label>
