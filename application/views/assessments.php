@@ -39,7 +39,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
                                 if (!($assessment->notes > 0)) {
                                 ?>
 
-                                    <a class="btn btn-sm btn-primary btn-flat" href="<?= base_url(); ?>index.php/assessments/assessment/<?= $assessment->id_evaluation ?>">
+                                    <a class="btn btn-xs btn-primary btn-flat" href="<?= base_url(); ?>index.php/assessments/assessment/<?= $assessment->id_evaluation ?>">
                                         <i class="nav-icon fas fa-pen"></i> EVALUER
                                     </a>
 
@@ -49,10 +49,10 @@ defined('BASEPATH') or exit('No direct script access allowed');
                                 <a href="<?= base_url(); ?>index.php/synthese/index/<?= $assessment->id_evaluation ?>" class="btn btn-xs btn-success btn-flat">
                                     <i class="nav-icon fas fa-pen"></i> SYNTHESE
                                 </a>
-                                <a href="<?= base_url(); ?>index.php/rapports/rapportpdf/10" class="btn btn-xs btn-info btn-flat">
+                                <a href="<?= base_url(); ?>index.php/rapports/rapportpdf/<?= $assessment->id_evaluation ?>" class="btn btn-xs btn-info btn-flat">
                                     <i class="nav-icon fas fa-book"></i> RAPPORT DAL
                                 </a>
-                                <a href="<?= base_url(); ?>index.php/rapports/rapportpdf/10" class="btn btn-xs btn-info btn-flat">
+                                <a href="<?= base_url(); ?>index.php/rapports/rapportdcp/<?= $assessment->id_evaluation ?>" class="btn btn-xs btn-info btn-flat">
                                     <i class="nav-icon fas fa-book"></i> RAPPORT DCP
                                 </a>
                             </div>

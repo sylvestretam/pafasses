@@ -40,15 +40,15 @@ class Assessments extends CI_Controller
         $notes = [];
         for ($i = 1; $i <= 14; $i++) {
             $lb = 'note' . $i;
+            $note = (0 <= $_REQUEST[$lb] && $_REQUEST[$lb] <= 20) ? $_REQUEST[$lb] : 0;
             $data = array(
-                'note' => $_REQUEST[$lb],
+                'note' => $note,
                 'id_question' => $i,
                 'id_evaluation' => $_REQUEST['id_evaluation'],
                 'email_participant' => $_SESSION['mail']
             );
             $this->db->insert('note', $data);
 
-            $note = (0 <= $_REQUEST[$lb] && $_REQUEST[$lb] <= 20) ? $_REQUEST[$lb] : 0;
             $notes[$i] = $note;
             // array_push($notes, ['id_question' => $i, 'note' => $note]);
         }
@@ -61,7 +61,6 @@ class Assessments extends CI_Controller
         $this->db->where($where);
         $this->db->update('participation', $data);
 
-        // var_dump($notes);
         $this->index();
     }
 
@@ -90,17 +89,26 @@ class Assessments extends CI_Controller
         $criteres = $this->db->get('critere')->result();
         $qestions = $this->db->get('question')->result();
 
-        $nc = 0;
-        foreach ($notes as $key => $value) {
-            $question = $this->getQuestion($qestions, $key);
-            $critere = $this->getCritere($criteres, $question->id_critere);
+        // $nc = [];
+        // foreach ($notes as $key => $value) {
+        //     $question = $this->getQuestion($qestions, $key);
+        //     $critere = $this->getCritere($criteres, $question->id_critere);
+        // }
 
-            // $nc = $nc + ($critere->coefficient);
-            $nc = $nc + 1 * ($value * $critere->coefficient);
-            // $nc = $nc + ($value * $critere->coefficient);
+        $nc = 0;
+        foreach ($criteres as $element) {
+            $qs = $this->getQuestions($qestions, $element->id_critere);
+            $sum = 0;
+            foreach ($qs as $q) {
+                $sum = $sum + $notes[$q->id_question];
+            }
+            $nc = $nc + ( ($sum / $element->indice / 20 ) * $element->coefficient );
+            
+            // var_dump( ($sum / $element->indice/20)*$element->coefficient );
+            // print('<br>');
         }
 
-        return round($nc / 14);
+        return round($nc);
     }
 
     function getCritere($criteres, $id_critere)
@@ -121,5 +129,16 @@ class Assessments extends CI_Controller
         }
 
         return ['id_question' => 0, 'id_critere' => 0];
+    }
+
+    function getQuestions($questions, $id_critere)
+    {
+        $qs = [];
+        foreach ($questions as $element) {
+            if ($element->id_critere == $id_critere)
+                array_push($qs, $element);
+        }
+
+        return $qs;
     }
 }

@@ -15,6 +15,10 @@ class Synthese extends CI_Controller
         $assessment = $query->row();
 
         $assessors = $this->db->get_where('participation', array('id_evaluation' => $id))->result();
+        if ($_SESSION['role'] == 'ASSESSOR') {
+            $email = $_SESSION['mail'];
+            $assessors = $this->db->get_where('participation', array('id_evaluation' => $id, 'email_participant' => $email))->result();
+        }
         $notes = $this->db->get_where('note', array('id_evaluation' => $id))->result();
 
         $data = array(

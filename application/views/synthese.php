@@ -26,7 +26,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
                     </div>
 
                     <div class="card-body fts">
-                        <table class="table table-bordered table-hover">
+                        <table class="table table-bordered table-hover text-xs">
                             <thead>
                                 <tr class="text-nowrap">
                                     <th>Participant </th>
@@ -34,7 +34,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
                                     for ($i = 1; $i <= 14; $i++) { ?>
                                         <th>Note <?= $i ?></th>
                                     <?php } ?>
-                                    <th>Perf./30</th>
+                                    <th>Perf./100</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -48,7 +48,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
                                         }
                                     }
 
-                                    return 'pas de note';
+                                    return '-';
                                 }
 
                                 foreach ($assessors as $assessor) {
@@ -62,7 +62,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
                                                 <?= getNote($assessor->email_participant, $i, $notes) ?>
                                             </td>
                                         <?php } ?>
-                                        <td class="lead font-weight-bold invisible"> <?= $assessor->performance ?> </td>
+                                        <td class="lead font-weight-bold"> <?= $assessor->performance ?> </td>
                                     </tr>
                                 <?php } ?>
 
