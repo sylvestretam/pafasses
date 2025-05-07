@@ -78,7 +78,7 @@ class Assessments extends CI_Controller
             return  $query->result();
         } else {
             $query = $this->db->query("SELECT *, 
-            (SELECT count(*) from note WHERE note.id_evaluation = evaluation.id_evaluation AND note.email_participant = '$email' ) as notes
+            (SELECT 1 ) as notes
             FROM evaluation join activite on evaluation.id_activite = activite.id_activite
             join paf on paf.matricule_paf = evaluation.matricule_paf");
             return  $query->result();

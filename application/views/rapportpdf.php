@@ -10,10 +10,10 @@ class MonPDF extends TCPDF
         // $this->Image($image_file, 10, 5, 30, '', 'JPG', '', 'T', false, 300, '', false, false, 0, false, false, false);
     }
 
-    // public function Footer()
-    // {
-    //     // Pied de page
-    // }
+    public function Footer()
+    {
+        // Pied de page
+    }
 
     public function MonContenu()
     {
@@ -89,7 +89,7 @@ class MonPDF extends TCPDF
         $this->Cell($cellWidth / 10, $lineheight, 'Bien', 1, '0', 'C');
         $this->Cell($cellWidth / 10, $lineheight, 'Excellent', 1, '1', 'C');
 
-
+        $lineheight = 4;
         $this->Cell($cellWidth / 2, $lineheight, '', 1, 0, 'C');
         $this->Cell($cellWidth / 10, $lineheight, '', 1, '0', 'C');
         $this->Cell($cellWidth / 10, $lineheight, '', 1, '0', 'C');

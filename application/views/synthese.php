@@ -32,13 +32,9 @@ defined('BASEPATH') or exit('No direct script access allowed');
                                     <th>Participant </th>
                                     <?php
                                     for ($i = 1; $i <= 14; $i++) { ?>
-                                    <th>Note <?= $i ?></th>
+                                        <th>Note <?= $i ?></th>
                                     <?php } ?>
-                                    <th>Final</th>
-                                    <!-- <th>Valeur PMO</th>
-                                    <th>Valeur QHSE</th>
-                                    <th>Note</th>
-                                    <th>Observations </th> -->
+                                    <th>Perf./30</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -57,17 +53,17 @@ defined('BASEPATH') or exit('No direct script access allowed');
 
                                 foreach ($assessors as $assessor) {
                                 ?>
-                                <tr>
-                                    <td> <?= $assessor->email_participant ?> </td>
-                                    <?php
+                                    <tr>
+                                        <td> <?= $assessor->email_participant ?> </td>
+                                        <?php
                                         for ($i = 1; $i <= 14; $i++) {
                                         ?>
-                                    <td class="lead">
-                                        <?= getNote($assessor->email_participant, $i, $notes) ?>
-                                    </td>
-                                    <?php } ?>
-                                    <td> <?= $assessor->performance ?> </td>
-                                </tr>
+                                            <td class="lead">
+                                                <?= getNote($assessor->email_participant, $i, $notes) ?>
+                                            </td>
+                                        <?php } ?>
+                                        <td class="lead font-weight-bold invisible"> <?= $assessor->performance ?> </td>
+                                    </tr>
                                 <?php } ?>
 
                             </tbody>
