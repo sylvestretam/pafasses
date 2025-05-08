@@ -7,6 +7,16 @@ $(function () {
       theme: 'bootstrap4'
     })
 
+    $('.tableordered').DataTable({
+        "paging": false,
+        "lengthChange": false,
+        "searching": true,
+        "ordering": true,
+        "info": false,
+        "autoWidth": false,
+        "responsive": true,
+      });
+
 })
 
   function AddEvaluateur(){

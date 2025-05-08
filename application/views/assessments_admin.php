@@ -30,7 +30,7 @@
                             <h3 class="card-title"> Listes des Evaluations </h3>
                         </div>
                         <div class="card-body">
-                            <table class="table table-bordered table-striped">
+                            <table class="table table-bordered table-striped tableordered">
                                 <thead>
                                     <tr>
                                         <th>CODE</th>
@@ -50,8 +50,8 @@
                                     <tr class="text-xs">
                                         <td><?= $assessment->id_evaluation ?></td>
                                         <td><?= $assessment->periode ?></td>
-                                        <td><?= $assessment->matricule_paf . ":" . $assessment->nom_paf ?></td>
-                                        <td><?= $assessment->id_activite . ":" . $assessment->designation ?></td>
+                                        <td><?= $assessment->nom_paf ?></td>
+                                        <td><?= $assessment->designation ?></td>
                                         <td><?= $assessment->lieu ?></td>
                                         <td><?= $assessment->email_responsable ?></td>
                                         <td><?= $assessment->evaluateurs ?></td>
