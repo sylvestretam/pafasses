@@ -181,7 +181,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
                         <h3 class="card-title">Recap Evaluateur</h3>
                     </div>
                     <div class="card-body">
-                        <table class="table table-bordered table-striped">
+                        <table class="table table-bordered table-striped x_fts">
                             <thead>
                                 <tr>
                                     <th style="width: 10px">#</th>
@@ -189,10 +189,25 @@ defined('BASEPATH') or exit('No direct script access allowed');
                                     <th>Activité(s)</th>
                                     <th>Prestataire(s)</th>
                                     <th>Evaluation(s)</th>
-                                    <th style="width: 40px">Rate</th>
+                                    <th style="width: 30px">Rate</th>
                                 </tr>
                             </thead>
                             <tbody>
+
+                                <?php
+                                $i=1;
+                                foreach ($assessors as $assessor) {
+                                ?>
+                                <tr>
+                                    <td> <?= $i++ ?> </td>
+                                    <td> <?= $assessor->email_user ?> </td>
+                                    <td> <?= $assessor->activite ?> </td>
+                                    <td> <?= $assessor->paf ?> </td>
+                                    <td> <?= $assessor->participation ?> </td>
+                                    <td> <?= round( $r = ($assessor->participation == 0) ? 0 : ($assessor->effectue / $assessor->participation))." % " ?>
+                                    </td>
+                                </tr>
+                                <?php } ?>
 
                             </tbody>
                         </table>
@@ -207,19 +222,30 @@ defined('BASEPATH') or exit('No direct script access allowed');
                         <h3 class="card-title">Recap par Partenaires</h3>
                     </div>
                     <div class="card-body">
-                        <table class="table table-bordered table-striped">
+                        <table class="table table-bordered table-striped x_fts">
                             <thead>
                                 <tr>
                                     <th style="width: 10px">#</th>
-                                    <th>Evaluateur</th>
+                                    <th>Partenaire</th>
                                     <th>Activité(s)</th>
-                                    <th>Prestataire(s)</th>
                                     <th>Evaluation(s)</th>
                                     <th style="width: 40px">Rate</th>
                                 </tr>
                             </thead>
                             <tbody>
-
+                                <?php
+                                $i=1;
+                                foreach ($pafs as $paf) {
+                                ?>
+                                <tr>
+                                    <td> <?= $i++ ?> </td>
+                                    <td> <?= $paf->nom_paf ?> </td>
+                                    <td> <?= $paf->activite ?> </td>
+                                    <td> <?= $paf->evaluation ?> </td>
+                                    <td> <?= round( ($paf->evaluation == 0) ? 0 : ($paf->effectue / $paf->evaluation) ) ?>
+                                    </td>
+                                </tr>
+                                <?php } ?>
                             </tbody>
                         </table>
                     </div>

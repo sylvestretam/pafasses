@@ -6,11 +6,30 @@ class Dashboard extends CI_Controller
 
     public function index()
     {
+        $queryu = $this->db->query("
+            SELECT 
+            *, 
+            (SELECT COUNT(*) FROM participation  AS p WHERE p.email_participant = u.email_user) AS participation,
+            (SELECT COUNT(*) FROM participation  AS p WHERE p.email_participant = u.email_user AND swot IS NOT NULL AND performance IS NOT NULL) AS effectue,
+            (SELECT COUNT(*) FROM activite  WHERE id_activite IN (SELECT id_activite FROM evaluation WHERE id_evaluation IN (SELECT id_evaluation FROM  participation  WHERE email_participant = u.email_user)) ) AS activite, 
+            (SELECT COUNT(*) FROM paf  WHERE matricule_paf IN (SELECT matricule_paf FROM evaluation WHERE id_evaluation IN (SELECT id_evaluation FROM  participation  WHERE email_participant = u.email_user)) ) AS paf
+            FROM user AS u
+        ");
+
+        $queryp = $this->db->query("
+            SELECT 
+            *, 
+            (SELECT COUNT(*) FROM participation WHERE id_evaluation IN (SELECT id_evaluation FROM  evaluation WHERE evaluation.matricule_paf = p.matricule_paf ) )AS evaluation, 
+            (SELECT COUNT(*) FROM participation WHERE  swot IS NOT NULL AND performance IS NOT NULL AND id_evaluation IN (SELECT id_evaluation FROM  evaluation WHERE evaluation.matricule_paf = p.matricule_paf ) )AS effectue,
+            (SELECT COUNT(*) FROM evaluation WHERE evaluation.matricule_paf = p.matricule_paf) AS activite 
+            FROM paf AS p;
+        ");
+
         $data = array(
             'content' => 'dashboard.php',
             'activites' => $this->db->get('activite')->result(),
-            'pafs' => $this->db->get('paf')->result(),
-            'assessors' => $this->db->get('user')->result(),
+            'pafs' => $queryp->result(),
+            'assessors' => $queryu->result(),
             'assessments' => $this->getAssessments()
         );
 
