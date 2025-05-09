@@ -204,7 +204,8 @@ defined('BASEPATH') or exit('No direct script access allowed');
                                     <td> <?= $assessor->activite ?> </td>
                                     <td> <?= $assessor->paf ?> </td>
                                     <td> <?= $assessor->participation ?> </td>
-                                    <td> <?= round( $r = ($assessor->participation == 0) ? 0 : ($assessor->effectue / $assessor->participation) * 100 )." % " ?>
+                                    <td class="font-weight-bold">
+                                        <?= round( $r = ($assessor->participation == 0) ? 0 : ($assessor->effectue / $assessor->participation) * 100 )." % " ?>
                                     </td>
                                 </tr>
                                 <?php } ?>
@@ -242,7 +243,8 @@ defined('BASEPATH') or exit('No direct script access allowed');
                                     <td> <?= $paf->nom_paf ?> </td>
                                     <td> <?= $paf->activite ?> </td>
                                     <td> <?= $paf->evaluation ?> </td>
-                                    <td> <?= round( ($paf->evaluation == 0) ? 0 : ($paf->effectue / $paf->evaluation) * 100 )." % " ?>
+                                    <td class="font-weight-bold">
+                                        <?= round( ($paf->evaluation == 0) ? 0 : ($paf->effectue / $paf->evaluation) * 100 )." % " ?>
                                     </td>
                                 </tr>
                                 <?php } ?>
