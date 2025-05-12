@@ -282,11 +282,21 @@ class MonPDF extends TCPDF
         $this->MultiCell($cellWidth / 10, $lineheight, $this->writePerfomance($this->getNote($this->notes,14),13,15), 1, 'C', 0, 0, '', '', true);
         $this->MultiCell($cellWidth / 10, $lineheight, $this->writePerfomance($this->getNote($this->notes,14),15,20), 1, 'C', 0, 1, '', '', true);
 
+        $this->ln(1);
         $this->SetFont($fontreg, 'B', 11);
+        $lineheight = 5;
+        $this->MultiCell(0, $lineheight, 'Analyse SWOT :', 0, 'L', 0, 1, '', '', true);
+        $this->SetFont($fontreg, '', 6);
         $lineheight = 20;
-        $this->MultiCell(0, $lineheight, 'Analyse SWOT :'. $this->swot, 1, 'L', 0, 1, '', '', true);
+        $this->MultiCell(0, $lineheight,$this->swot, 1, 'L', 0, 1, '', '', true);
+
+        $this->ln(1);
+        $lineheight = 5;
+        $this->SetFont($fontreg, 'B', 11);
+        $this->MultiCell(0, $lineheight, 'Axes d’amélioration : (ou toute autre observation sur le PAF) :', 0, 'L', 0, 1, '', '', true);
         $lineheight = 20;
-        $this->MultiCell(0, $lineheight, 'Axes d’amélioration : (ou toute autre observation sur le PAF) :'.$this->axe, 1, 'L', 0, 1, '', '', true);
+        $this->SetFont($fontreg, '', 6);
+        $this->MultiCell(0, $lineheight,$this->axe, 1, 'L', 0, 1, '', '', true);
 
         $this->ln(1);
         $this->SetFont($fontreg, 'B', 7);
