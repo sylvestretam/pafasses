@@ -43,7 +43,7 @@ class MonPDF extends TCPDF
         $sum = "";
         
         foreach ($participations as $participation) {
-            $sum = $sum . $participation->swot . "; ";
+            $sum = $sum . $participation->swot . ";\n\n ";
         }
 
         return $sum;
@@ -54,7 +54,7 @@ class MonPDF extends TCPDF
         $sum = "";
         
         foreach ($participations as $participation) {
-            $sum = $sum . $participation->amelioration . "; ";
+            $sum = $sum . $participation->amelioration . ";\n\n ";
         }
 
         return $sum;
@@ -288,7 +288,8 @@ class MonPDF extends TCPDF
         $this->MultiCell(0, $lineheight, 'Analyse SWOT :', 0, 'L', 0, 1, '', '', true);
         $this->SetFont($fontreg, '', 6);
         $lineheight = 20;
-        $this->MultiCell(0, $lineheight,$this->swot, 1, 'L', 0, 1, '', '', true);
+        $hauteur = $this->getStringHeight(0,$this->axe);
+        $this->MultiCell(0, $hauteur,$this->swot, 1, 'L', 0, 1, '', '', true);
 
         $this->ln(1);
         $lineheight = 5;
@@ -296,7 +297,8 @@ class MonPDF extends TCPDF
         $this->MultiCell(0, $lineheight, 'Axes d’amélioration : (ou toute autre observation sur le PAF) :', 0, 'L', 0, 1, '', '', true);
         $lineheight = 20;
         $this->SetFont($fontreg, '', 6);
-        $this->MultiCell(0, $lineheight,$this->axe, 1, 'L', 0, 1, '', '', true);
+        $hauteur = $this->getStringHeight(0,$this->axe);
+        $this->MultiCell(0, $hauteur,$this->axe, 1, 'L', 0, 1, '', '', true);
 
         $this->ln(1);
         $this->SetFont($fontreg, 'B', 7);
