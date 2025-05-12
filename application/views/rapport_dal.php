@@ -27,7 +27,8 @@ class MonPDF extends TCPDF
             $sum = $sum + $participation->performance;
         }
 
-        return round($sum/sizeof($participations));
+        $ret = (sizeof($participations) == 0) ? 0 : round($sum/sizeof($participations));
+        return $ret;
     }
 
     function writePerfomance($performance,$min,$max)
@@ -70,6 +71,9 @@ class MonPDF extends TCPDF
             }
         }
 
+        if($j== 0 )
+            return 0;
+            
         return round($sum/$j);
     }
 
