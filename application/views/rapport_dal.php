@@ -131,7 +131,7 @@ class MonPDF extends TCPDF
 
         $this->SetFont($fontreg, 'B', 8);
         $this->MultiCell($cellWidth / 4, $lineheight, 'Période concernée :', 1, 'C', 0, 0, '', '', true);
-        $this->MultiCell($cellWidth / 4, $lineheight, $this->assessment->periode, 1, 'L', 0, 0, '', '', true);
+        $this->MultiCell($cellWidth / 4, $lineheight, $this->assessment->periode."", 1, 'L', 0, 0, '', '', true);
         $this->MultiCell($cellWidth / 4, $lineheight, 'Lieu de l’activité :', 1, 'C', 0, 0, '', '', true);
         $this->MultiCell($cellWidth / 4, $lineheight, $this->assessment->lieu, 1, 'L', 0, 1, '', '', true);
         $this->ln(4);
