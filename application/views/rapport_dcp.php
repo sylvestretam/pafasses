@@ -129,7 +129,7 @@ class MonPDF extends TCPDF
         $this->SetFont($fontreg, '', 9);
         $this->Cell(90, $lineheight, 'Période concernée :', 1, 0, 'R');
         $this->SetFont($fontreg, 'B', 9);
-        $this->MultiCell(100, $lineheight, $this->assessment->periode, 1, 'C');
+        $this->MultiCell(100, $lineheight, $this->assessment->periode."", 1, 'C');
         $this->SetFont($fontreg, '', 9);
         $this->Cell(90, $lineheight, 'Date de fin de l’évaluation :', 1, 0, 'R');
         $this->SetFont($fontreg, 'B', 9);
