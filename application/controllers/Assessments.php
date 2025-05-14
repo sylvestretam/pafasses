@@ -3,7 +3,6 @@ defined('BASEPATH') or exit('No direct script access allowed');
 
 class Assessments extends CI_Controller
 {
-
     public function index()
     {
         $data = array(
@@ -73,13 +72,16 @@ class Assessments extends CI_Controller
             FROM evaluation join activite on evaluation.id_activite = activite.id_activite
             join paf on paf.matricule_paf = evaluation.matricule_paf
             WHERE evaluation.id_evaluation IN (select participation.id_evaluation FROM participation WHERE email_participant = '$email')
+            ORDER BY paf.nom_paf
             ");
             return  $query->result();
         } else {
             $query = $this->db->query("SELECT *, 
             (SELECT 1 ) as notes
             FROM evaluation join activite on evaluation.id_activite = activite.id_activite
-            join paf on paf.matricule_paf = evaluation.matricule_paf");
+            join paf on paf.matricule_paf = evaluation.matricule_paf
+            ORDER BY paf.nom_paf
+            ");
             return  $query->result();
         }
     }

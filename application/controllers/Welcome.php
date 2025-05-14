@@ -3,11 +3,10 @@ defined('BASEPATH') or exit('No direct script access allowed');
 
 class Welcome extends CI_Controller
 {
-
 	public function index()
-	{
-		$this->load->view('connexion');
-	}
+    {
+        $this->load->view('connexion');
+    }
 
 	public function login()
 	{
@@ -52,6 +51,17 @@ class Welcome extends CI_Controller
 		// $this->session->set_userdata('password', "Lionelmessi10");
 		// header("Location: " . base_url() . "index.php/dashboard");
 	}
+
+	
+    public function logout()
+    {
+        $this->session->sess_destroy();
+		$data = array(
+            'error' => 'Please connect'
+        );
+
+        $this->load->view('connexion', $data);
+    }
 
 	private function ldapConnect_($userid, $password)
 	{
